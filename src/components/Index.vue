@@ -10,14 +10,9 @@
 </template>
 
 <script>
-import { DB, SR } from '~/instance/fire'
+import { DB } from '~/instance/fire'
 
 export default {
-  created () {
-    let img = SR.ref('images/CReWRy4LOS9EOHkDb.jpg').getMetadata()
-    console.log(img)
-  },
-
   firebase: {
     books: DB.ref('books')
   }

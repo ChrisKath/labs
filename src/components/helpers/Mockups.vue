@@ -2,7 +2,7 @@
   <transition name="mockups">
     <div class="mu-mockups">
 
-      <div class="mu-image" :style="backgroundImage"></div>
+      <div class="mu-image" :style="backgroundImage(data.image)"></div>
 
       <div class="mu-title">
         <a>{{ data.title }}</a>
@@ -29,12 +29,9 @@ export default {
     }
   },
 
-  computed: {
-    backgroundImage () {
-      return `background-image: url(https://firebasestorage.googleapis.com/v0/b/tap10-c388f.appspot.com/o/CReWRy4LOS9EOHkDb.jpg?alt=media&token=f60b6d59-3f15-406b-a535-4ec1da45cdea)`
-      // return `background-image: url(${
-      //   require('~/assets/img/default.jpg')
-      // })`
+  methods: {
+    backgroundImage (path) {
+      return `background-image: url(${path})`
     }
   }
 }

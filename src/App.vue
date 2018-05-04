@@ -15,6 +15,18 @@ export default {
           name: 'store'
         })
       }
+
+      if (e.key === 'F4' || e.keyCode === 115) {
+        this.$router.push({
+          name: 'auth'
+        })
+      }
+
+      if (e.key === 'Home' || e.keyCode === 36) {
+        this.$router.push({
+          name: 'index'
+        })
+      }
     }, false)
   }
 }

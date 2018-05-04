@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-const INDEX = r => import('~/components/Index')
-const STORE = r => import('~/components/Store')
+const INDEX = () => import('~/components/Index')
+const STORE = () => import('~/components/Store')
+const AUTH  = () => import('~/components/Auth')
 
 export default new Router({
   scrollBehavior: r => ({
@@ -21,6 +22,11 @@ export default new Router({
       path: '/f2',
       name: 'store',
       component: STORE
+    },
+    {
+      path: '/f4',
+      name: 'auth',
+      component: AUTH
     }
   ]
 })

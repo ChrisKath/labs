@@ -3,25 +3,29 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
-import VueFire from 'vuefire'
+import router from './router'
 
 // load styling (less)
 import '~/assets/style/core.less'
 
 // load Components & plugs.
+import VueFire from 'vuefire'
+import Moment from 'vue-moment'
 // import Firebase from '~/instance/fire'
 // import Icon from '~/components/helpers/icon'
-// const components = {
-//   Icon
-// }
+import Mockups from '~/components/helpers/Mockups'
+const components = {
+  Mockups
+}
 
-// Install components.
-// Object.keys(components).forEach(key => {
-//   Vue.component(key, components[key])
-// })
+// Installation components.
+Object.keys(components).forEach(key => {
+  Vue.component(key, components[key])
+})
 
 // Initialize Firebase
 Vue.use(VueFire)
+Vue.use(Moment)
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
@@ -30,5 +34,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   store,
+  router,
   render: h => h(App)
 })

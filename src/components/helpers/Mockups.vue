@@ -1,21 +1,23 @@
 <template lang="html">
-  <div class="mu-mockups">
+  <transition name="mockups">
+    <div class="mu-mockups">
 
-    <div class="mu-image" :style="backgroundImage"></div>
+      <div class="mu-image" :style="backgroundImage"></div>
 
-    <div class="mu-title">
-      <a>{{ data.title }}</a>
+      <div class="mu-title">
+        <a>{{ data.title }}</a>
+      </div>
+
+      <div class="mu-desc">
+        by <a>{{ data.author }}</a>
+      </div>
+
+      <div class="mu-time">
+        {{ $moment(data.timestamp).format('LL') }}
+      </div>
+
     </div>
-
-    <div class="mu-desc">
-      by <a>{{ data.author }}</a>
-    </div>
-
-    <div class="mu-time">
-      {{ $moment(data.timestamp).format('LL') }}
-    </div>
-
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -29,9 +31,10 @@ export default {
 
   computed: {
     backgroundImage () {
-      return `background-image: url(${
-        require('~/assets/img/default.jpg')
-      })`
+      return `background-image: url(https://firebasestorage.googleapis.com/v0/b/tap10-c388f.appspot.com/o/CReWRy4LOS9EOHkDb.jpg?alt=media&token=f60b6d59-3f15-406b-a535-4ec1da45cdea)`
+      // return `background-image: url(${
+      //   require('~/assets/img/default.jpg')
+      // })`
     }
   }
 }
@@ -67,6 +70,7 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    background-color: hsl(220, 15%, 94%);
   }
 
   &title {
@@ -100,5 +104,12 @@ export default {
     font-weight: 100;
     margin-bottom: 15px;
   }
+}
+
+.mockups-enter-active, .mockups-leave-active {
+  transition: opacity 480ms;
+}
+.mockups-enter, .mockups-leave-to /* .mockups-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

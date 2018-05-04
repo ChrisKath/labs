@@ -9,5 +9,6 @@ const FIRE = initializeApp({
   messagingSenderId: '985015798166'
 })
 
+export default FIRE
 export const DB = FIRE.database()
-export const REF = name => DB.ref(name)
+export const SR = FIRE.storage()

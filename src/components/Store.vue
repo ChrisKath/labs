@@ -23,7 +23,7 @@
 
 <script>
 import Form from '~/instance/form'
-import { REF } from '~/instance/fire'
+import { DB } from '~/instance/fire'
 
 export default {
   data () {
@@ -39,12 +39,12 @@ export default {
     addBook () {
       const FORM = Object.assign({}, this.form)
       FORM.timestamp = Date.now()
-      REF('books').push(FORM)
+      DB.ref('books').push(FORM)
       this.form.reset()
     },
 
     editBook (book) {
-      REF('books').child(book['.key']).update({
+      DB.ref('books').child(book['.key']).update({
         title: this.form.title,
         author: this.form.author,
         timestamp: Date.now()
@@ -53,12 +53,12 @@ export default {
     },
 
     removeBook (book) {
-      REF('books').child(book['.key']).remove()
+      DB.ref('books').child(book['.key']).remove()
     }
   },
 
   firebase: {
-    books: REF('books')
+    books: DB.ref('books')
   }
 }
 </script>

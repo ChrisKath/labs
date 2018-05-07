@@ -23,7 +23,7 @@
 
 <script>
 import Form from '~/instance/form'
-import { DB, SR } from '~/instance/fire'
+import FIRE, { DB, SR } from '~/instance/fire'
 
 export default {
   data () {
@@ -33,6 +33,14 @@ export default {
         author: null
       }),
       temp: null
+    }
+  },
+
+  created () {
+    if (!FIRE.auth().currentUser) {
+      this.$router.push({
+        name: 'auth'
+      })
     }
   },
 
@@ -51,6 +59,7 @@ export default {
 
           DB.ref('books').push(FORM)
           this.form.reset()
+          document.querySelector('input[type=file]').value = null
         })
         .catch(err => console.error(err))
     },

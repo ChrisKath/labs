@@ -3,7 +3,7 @@
 .exp {
   display: flex;
   max-width: 600px;
-  margin: 0 auto 40px;
+  margin: 0 auto 25px;
 }
 
 body {
@@ -18,21 +18,21 @@ body {
 }
 
 .n-form {
-  .exp();
-  overflow: hidden;
-  border-radius: 2px;
+  display: block;
+  margin: 0 0 25px;
 
   input {
-    max-height: 37px;
+    margin: 0 0 1px;
+    max-height: 40px;
     font-size: 12px;
     padding: 10px 15px;
     border-right: 2px solid @darkens;
-    background-color: #f5f8ff;
+    background-color: fade(#f5f8ff, 98%);
   }
 
   button {
     font-size: 14px;
-    padding: 0 15px;
+    padding: 6px 40px;
     font-weight: 900;
     color: @darkens;
     background-color: @warning-color;

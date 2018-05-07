@@ -26,6 +26,7 @@ Object.keys(components).forEach(key => {
 // Initialize Firebase
 Vue.use(VueFire)
 Vue.use(Moment)
+Vue.prototype.port = 'https://firebasestorage.googleapis.com/v0/b/tap10-c388f.appspot.com/o/'
 
 Vue.config.devtools = true
 Vue.config.productionTip = false

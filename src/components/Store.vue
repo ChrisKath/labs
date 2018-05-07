@@ -38,15 +38,16 @@ export default {
 
   methods: {
     addBook () {
+      if (!this.temp) return console.warn('Something went wrong!!')
+
       const FORM = Object.assign({}, this.form)
       const F = this.temp
+      const N = `${Date.now()}${this.fileType(F.name)}`
 
-      SR.ref().child(F.name).put(F, {
-        contentType: F.type
-      })
+      SR.child(N).put(F, { contentType: F.type })
         .then(snapshot => {
           FORM.timestamp = Date.now()
-          FORM.image = snapshot.downloadURL
+          FORM.image = snapshot.downloadURL.replace(this.port, '')
 
           DB.ref('books').push(FORM)
           this.form.reset()
@@ -64,11 +65,22 @@ export default {
     },
 
     removeBook (book) {
-      DB.ref('books').child(book['.key']).remove()
+      let J = book.image
+      let N = J.substr(J.indexOf('?'), J.length)
+
+      SR.child(J.replace(N, '')).delete()
+        .then(bak => {
+          DB.ref('books').child(book['.key']).remove()
+        })
+        .catch(err => console.error(err))
     },
 
     handleFiles () {
       this.temp = event.target.files[0]
+    },
+
+    fileType (name) {
+      return name.substr(name.indexOf('.'), name.length)
     }
   },
 
@@ -80,8 +92,8 @@ export default {
 
 <style lang="less" scoped>
 .n-store {
-  background-color: darken(#363E4F, 10%);
-  padding: 10vh 0;
   height: 100vh;
+  padding: 15px;
+  background-color: darken(#363E4F, 10%);
 }
 </style>

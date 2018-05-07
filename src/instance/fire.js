@@ -11,4 +11,4 @@ const FIRE = initializeApp({
 
 export default FIRE
 export const DB = FIRE.database()
-export const SR = FIRE.storage()
+export const SR = FIRE.storage().ref()

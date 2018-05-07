@@ -11,9 +11,14 @@ export default {
   created () {
     window.addEventListener('keyup', e => {
       if (e.key === 'F2' || e.keyCode === 113) {
-        this.$router.push({
-          name: 'store'
-        })
+        // this.$router.push({ name: 'store' })
+        window.open(`${window.location.href}f2`, null,
+          `channelmode=yes,\
+           height=640px,\
+           width=460px,\
+           top=8px,\
+           left=0\
+          `)
       }
 
       if (e.key === 'F4' || e.keyCode === 115) {

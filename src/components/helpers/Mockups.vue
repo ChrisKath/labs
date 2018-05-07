@@ -31,7 +31,7 @@ export default {
 
   methods: {
     backgroundImage (path) {
-      return `background-image: url(${path})`
+      return `background-image: url(${this.port}${path})`
     }
   }
 }

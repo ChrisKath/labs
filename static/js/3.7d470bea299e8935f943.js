@@ -1,2 +1,0 @@
-webpackJsonp([3],{"42Hy":function(e,t,s){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n={firebase:{books:s("qszd").a.ref("books")}},r={render:function(){var e=this.$createElement,t=this._self._c||e;return t("div",{staticClass:"n-index"},this._l(this.books,function(e,s){return t("Mockups",{key:s,attrs:{data:e}})}))},staticRenderFns:[]},a=s("VU/8")(n,r,!1,null,null,null);t.default=a.exports}});
-//# sourceMappingURL=3.7d470bea299e8935f943.js.map

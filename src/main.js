@@ -2,19 +2,18 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import store from './store'
 import router from './router'
 
-// load styling (less)
+// Initialize (less) styling.
 import '~/assets/style/core.less'
 
-// load Components & plugs.
-import VueFire from 'vuefire'
+// Initialize Components & plugins.
+import VFire from 'vuefire'
 import Moment from 'vue-moment'
-// import Firebase from '~/instance/fire'
-// import Icon from '~/components/helpers/icon'
+import Icon from '~/components/helpers/icon'
 import Mockups from '~/components/helpers/Mockups'
 const components = {
+  Icon,
   Mockups
 }
 
@@ -24,9 +23,9 @@ Object.keys(components).forEach(key => {
 })
 
 // Initialize Firebase
-Vue.use(VueFire)
+Vue.use(VFire)
 Vue.use(Moment)
-Vue.prototype.port = 'https://firebasestorage.googleapis.com/v0/b/tap10-c388f.appspot.com/o/'
+Vue.prototype.PORT = 'https://firebasestorage.googleapis.com/v0/b/touch-d0c06.appspot.com/o/'
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
@@ -34,7 +33,6 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  store,
   router,
   render: h => h(App)
 })

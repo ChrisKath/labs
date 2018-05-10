@@ -5,7 +5,7 @@
       <div class="mu-image" :style="backgroundImage(data.image)"></div>
 
       <div class="mu-title">
-        <a>{{ data.title }}</a>
+        <a :href="data.href" target="_blank">{{ data.topic }}</a>
       </div>
 
       <div class="mu-desc">
@@ -31,7 +31,7 @@ export default {
 
   methods: {
     backgroundImage (path) {
-      return `background-image: url(${this.port}${path})`
+      return `background-image: url(${this.PORT}${path})`
     }
   }
 }

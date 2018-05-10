@@ -1,12 +1,12 @@
 import { initializeApp } from 'firebase'
 
 const FIRE = initializeApp({
-  apiKey: 'AIzaSyAk0Kab4VOt3dpByyc2khOA92nZjucnw3c',
-  authDomain: 'tap10-c388f.firebaseapp.com',
-  databaseURL: 'https://tap10-c388f.firebaseio.com',
-  projectId: 'tap10-c388f',
-  storageBucket: 'tap10-c388f.appspot.com',
-  messagingSenderId: '985015798166'
+  apiKey: 'AIzaSyAZT279ZBiNGkWUA04pYQNyWN6BN6WW-h8',
+  authDomain: 'touch-d0c06.firebaseapp.com',
+  databaseURL: 'https://touch-d0c06.firebaseio.com',
+  projectId: 'touch-d0c06',
+  storageBucket: 'touch-d0c06.appspot.com',
+  messagingSenderId: '381013672111'
 })
 
 export default FIRE

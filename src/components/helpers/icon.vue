@@ -3,7 +3,7 @@
 </template>
 
 <script>
-const prefixCls = 'ive-icon'
+const prefixCls = 'ion'
 
 export default {
   name: 'Icon',

@@ -21,6 +21,7 @@
 @font-family            : "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 @code-family            : Consolas, Menlo, Courier, monospace;
 @title-color            : #1c2438;
+@base-color             : #FFFFFF;
 @text-color             : #495060;
 @font-size-base         : 14px;
 @font-size-small        : 12px;
@@ -187,3 +188,9 @@
 @avatar-color: #fff;
 @avatar-bg: lighten(@subsidiary-color, 40%);
 @avatar-border-radius: @border-radius-small;
+
+// Breakpoints
+@mobile:      ~"only screen and (max-width: 529px)";
+@tablet:      ~"only screen and (min-width: 530px) and (max-width: 949px)";
+@desktop:     ~"only screen and (min-width: 950px) and (max-width: 1128px)";
+@desktop-xl:  ~"only screen and (min-width: 1129px)";

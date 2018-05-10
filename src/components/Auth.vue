@@ -7,34 +7,55 @@
 
     <form class="n-form">
       <input type="email"
+        class="n-input"
         v-model="form.email"
         placeholder="Email Address"
       />
 
       <input type="password"
+        class="n-input"
         v-model="form.passdowd"
         placeholder="Password"
       />
 
-      <div class="n-btn">
-        <button type="button" @click="signUp">UP</button>
-        <button type="button" @click="signIn">IN</button>
+      <div class="n-btn-scope">
+        <button type="button" class="n-btn" @click="signUp">
+          SIGN-UP
+        </button>
+
+        <button type="button" class="n-btn" @click="signIn">
+          SIGN-IN
+        </button>
+      </div>
+
+      <div class="n-or">
+        <span>OR</span>
+      </div>
+
+      <div class="n-media">
+        <button type="button" class="n-btn" @click="facebook">
+          <Icon type="social-facebook" />
+          <span>Facebook</span>
+        </button>
+
+        <button type="button" class="n-btn" @click="google">
+          <Icon type="social-googleplus" />
+          <span>Google</span>
+        </button>
+
+        <button type="button" class="n-btn" @click="github">
+          <Icon type="social-github" />
+          <span>GitHub</span>
+        </button>
       </div>
     </form>
 
-    <strong>OR</strong>
-
-    <div class="n-media">
-      <button type="button" @click="github">GitHub</button>
-      <button type="button" @click="google">Google</button>
-      <button type="button" @click="facebook">Facebook</button>
-    </div>
   </div>
 </template>
 
 <script>
-import FIRE from '~/instance/fire'
 import Form from '~/instance/form'
+import FIRE from '~/instance/fire'
 import BASE from 'firebase'
 
 export default {
@@ -103,49 +124,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-.n-auth {
-  max-width: 460px;
-  margin: 0 auto;
-  height: 100vh;
-  padding: 15px;
-  background-color: darken(#363E4F, 10%);
-
-  .n-btn {
-    padding: 1px 2px 0 0;
-    display: flex;
-    justify-content: space-between;
-
-    button {
-      width: 49.8%;
-    }
-  }
-
-  strong {
-    display: block;
-    text-align: center;
-    padding: 20px 0;
-    color: white;
-  }
-
-  .n-media {
-    button {
-      display: block;
-      width: 100%;
-      max-width: 240px;
-      margin: 0 auto 8px;
-      padding: 5px 0;
-
-      font-size: 16px;
-      font-weight: 900;
-
-      color: white;
-      border-radius: 42px;
-      border: solid 1px fade(white, 72%);
-      background-color: transparent;
-      background-color: darken(#363E4F, 2.5%);
-    }
-  }
-}
-</style>

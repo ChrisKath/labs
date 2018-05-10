@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="n-index">
 
-    <Mockups v-for="(book, key) in books"
+    <Mockups v-for="(article, key) in articles"
       :key="key"
-      :data="book"
+      :data="article"
     />
 
   </div>
@@ -14,7 +14,7 @@ import { DB } from '~/instance/fire'
 
 export default {
   firebase: {
-    books: DB.ref('books')
+    articles: DB.ref('articles')
   }
 }
 </script>

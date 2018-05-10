@@ -12,10 +12,8 @@ export default new Router({
     y: 0
   }),
   fallback: false,
-  mode: process.env.NODE_ENV === 'production'
-    ? 'history'
-    : 'hash',
   routes: [
+    { path: '*', component: INDEX },
     {
       path: '/',
       name: 'index',

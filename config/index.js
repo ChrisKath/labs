@@ -6,8 +6,6 @@ const path = require('path')
 
 module.exports = {
   dev: {
-    api: '//real.co/api/v1',
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -45,8 +43,6 @@ module.exports = {
   },
 
   build: {
-    api: '//real.co/api/v1',
-
     // Template for index.html
     index: path.resolve(__dirname, '../master/index.html'),
 

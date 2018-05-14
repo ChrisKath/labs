@@ -8,14 +8,14 @@
 
 <script>
 import FIRE from '~/instance/fire'
-const CONFIG = 'channelmode=yes, height=720px, width=460px, top=8px'
+const CONFIG = 'channelmode=yes, height=640px, width=460px, top=8px'
 
 export default {
   created () {
     window.addEventListener('keyup', e => {
       let HOST = `${window.location.origin}${
         process.env.NODE_ENV === 'production'
-          ? ''
+          ? '/temp/#'
           : '/#'
       }`
 

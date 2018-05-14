@@ -74,9 +74,9 @@ export default {
         String(this.form.email),
         String(this.form.password)
       )
-        .then(msg => {
-          console.log(msg)
-          this.form.reset()
+        .then(res => {
+          console.log(res)
+          this.toStore()
         })
         .catch(err => console.error(err))
     },
@@ -87,9 +87,8 @@ export default {
         String(this.form.password)
       )
         .then(res => {
-          this.$router.push({
-            name: 'store'
-          })
+          console.log(res)
+          this.toStore()
         })
         .catch(err => console.error(err))
     },
@@ -98,7 +97,10 @@ export default {
       let provider = new BASE.auth.GithubAuthProvider()
       provider.addScope('repo') // Optional
       FIRE.auth().signInWithPopup(provider)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res)
+          this.toStore()
+        })
         .catch(err => console.error(err))
     },
 
@@ -107,9 +109,8 @@ export default {
       provider.addScope('https://www.googleapis.com/auth/plus.login') // Optional
       FIRE.auth().signInWithPopup(provider)
         .then(res => {
-          this.$router.push({
-            name: 'store'
-          })
+          console.log(res)
+          this.toStore()
         })
         .catch(err => console.error(err))
     },
@@ -118,8 +119,17 @@ export default {
       let provider = new BASE.auth.FacebookAuthProvider()
       provider.addScope('public_profile')
       FIRE.auth().signInWithPopup(provider)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res)
+          this.toStore()
+        })
         .catch(err => console.error(err))
+    },
+
+    toStore () {
+      this.$router.push({
+        name: 'store'
+      })
     }
   }
 }

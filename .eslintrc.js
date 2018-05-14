@@ -32,6 +32,8 @@ module.exports = {
     'no-multi-spaces': 0,
     'no-trailing-spaces': 0,
     'spaced-comment': 0,
-    'key-spacing': 0
+    'key-spacing': 0,
+    'padded-blocks': 0,
+    'no-unreachable': 0
   }
 }

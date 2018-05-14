@@ -84,6 +84,8 @@ export default class Form {
 
     delete data.temp
     delete data.errors
+
+    return data
   }
 
   /**

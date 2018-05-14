@@ -21,7 +21,7 @@
         @change="handleFiles"
       />
 
-      <button type="button" class="n-btn" @click="addArticle">
+      <button type="button" class="n-btn" @click="addOn">
         <Icon type="ios-flask-outline"/>
         <span>ADD</span>
       </button>
@@ -47,7 +47,11 @@
 
 <script>
 import Form from '~/instance/form'
-import { DB, SR } from '~/instance/fire'
+import { MAP, DB, STORAGE } from '~/instance/fire'
+
+const FILETYPE = NAME => {
+  return NAME.substr(NAME.indexOf('.'), NAME.length).toLowerCase()
+}
 
 export default {
   data () {
@@ -57,66 +61,63 @@ export default {
         author: null,
         href: null
       }),
-      temp: null
+      temp: null,
+      articles: []
     }
-  },
-
-  firebase: {
-    articles: DB.ref('articles')
   },
 
   methods: {
-    addArticle () {
+    addOn () {
       if (!this.temp) return console.warn('Something went wrong!!')
 
-      const FORM = Object.assign({}, this.form)
-      const F = this.temp
-      const N = `${Date.now()}${this.fileType(F.name)}`
+      const FORM = Object.assign({}, this.form.data())
+      const FILE = this.temp
+      const NAME = `${Date.now()}${FILETYPE(FILE.name)}`
 
-      SR.child(N).put(F, { contentType: F.type })
+      /**
+       * Upload file to firebase storage.
+       */
+      let CHILD = STORAGE.child(NAME)
+      CHILD.put(FILE, { contentType: FILE.type })
         .then(snapshot => {
-          FORM.timestamp = Date.now()
-          FORM.image = snapshot.downloadURL.replace(this.PORT, '')
 
-          DB.ref('articles').push(FORM)
-          this.form.reset()
-          document.querySelector('input[type=file]').value = null
+          // Gathering image fullpath
+          CHILD.getDownloadURL().then(url => {
+            FORM.image = url.replace(this.PORT, '')
+            FORM.timestamp = Date.now()
+
+            /**
+            * Insert new article to Cloud firestore
+            */
+            DB.collection('articles').add(FORM)
+              .then(() => console.log('Document successfully written!'))
+              .catch(err => console.log(err))
+
+            this.form.reset()
+            document.querySelector('input[type=file]').value = null
+          })
         })
         .catch(err => {
           console.error(err)
-          this.$router.push({
-            name: 'auth'
-          })
+          // this.$router.push({name: 'auth'})
         })
-    },
-
-    editArticle (article) {
-      DB.ref('articles').child(article['.key']).update({
-        title: this.form.title,
-        author: this.form.author,
-        timestamp: Date.now()
-      })
-      this.form.reset()
-    },
-
-    removeArticle (article) {
-      let J = article.image
-      let N = J.substr(J.indexOf('?'), J.length)
-
-      SR.child(J.replace(N, '')).delete()
-        .then(bak => {
-          DB.ref('articles').child(article['.key']).remove()
-        })
-        .catch(err => console.error(err))
     },
 
     handleFiles () {
-      this.temp = event.target.files[0]
-    },
-
-    fileType (name) {
-      return name.substr(name.indexOf('.'), name.length).toLowerCase()
+      let FILE = event.target.files
+      this.temp = FILE[0]
     }
+  },
+
+  created () {
+    DB.collection('articles').onSnapshot(querySnapshot => {
+      let snapshot = []
+      querySnapshot.forEach(doc => {
+        snapshot.push(MAP(doc))
+      })
+
+      this.articles = snapshot
+    })
   }
 }
 </script>

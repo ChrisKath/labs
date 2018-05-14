@@ -1,6 +1,11 @@
-import { initializeApp } from 'firebase'
+import FIREBASE from '@firebase/app'
+import '@firebase/auth'
+import '@firebase/storage'
+import '@firebase/database'
+import '@firebase/firestore'
+import '@firebase/functions'
 
-const FIRE = initializeApp({
+FIREBASE.initializeApp({
   apiKey: 'AIzaSyAZT279ZBiNGkWUA04pYQNyWN6BN6WW-h8',
   authDomain: 'touch-d0c06.firebaseapp.com',
   databaseURL: 'https://touch-d0c06.firebaseio.com',
@@ -9,6 +14,21 @@ const FIRE = initializeApp({
   messagingSenderId: '381013672111'
 })
 
-export default FIRE
-export const DB = FIRE.database()
-export const SR = FIRE.storage().ref()
+const store = FIREBASE.firestore()
+store.settings({
+  timestampsInSnapshots: true
+})
+
+export default FIREBASE
+export const DB = store
+export const STORAGE = FIREBASE.storage().ref()
+
+export const MAP = doc => {
+  return {
+    id:         doc.id,
+    topic:      doc.data().topic,
+    author:     doc.data().author,
+    image:      doc.data().image,
+    timestamp:  doc.data().timestamp
+  }
+}

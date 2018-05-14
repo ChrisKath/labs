@@ -10,11 +10,24 @@
 </template>
 
 <script>
-import { DB } from '~/instance/fire'
+import { DB, MAP } from '~/instance/fire'
 
 export default {
-  firebase: {
-    articles: DB.ref('articles')
+  data () {
+    return {
+      articles: []
+    }
+  },
+
+  created () {
+    DB.collection('articles').onSnapshot(querySnapshot => {
+      let store = []
+      querySnapshot.forEach(doc => {
+        store.push(MAP(doc))
+      })
+
+      this.articles = store
+    })
   }
 }
 </script>

@@ -20,14 +20,15 @@ export default {
   },
 
   created () {
-    DB.collection('articles').onSnapshot(querySnapshot => {
-      let store = []
-      querySnapshot.forEach(doc => {
-        store.push(MAP(doc))
-      })
+    DB.collection('articles')
+      .onSnapshot(querySnapshot => {
+        let store = []
+        querySnapshot.forEach(doc => {
+          store.push(MAP(doc))
+        })
 
-      this.articles = store
-    })
+        this.articles = store
+      })
   }
 }
 </script>

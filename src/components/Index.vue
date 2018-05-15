@@ -10,25 +10,19 @@
 </template>
 
 <script>
-import { DB, MAP } from '~/instance/fire'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      articles: []
-    }
+  created () {
+    this.real()
   },
 
-  created () {
-    DB.collection('articles')
-      .onSnapshot(querySnapshot => {
-        let store = []
-        querySnapshot.forEach(doc => {
-          store.push(MAP(doc))
-        })
+  methods: mapActions({
+    real: 'manage.end/getArticlesSnapshot'
+  }),
 
-        this.articles = store
-      })
-  }
+  computed: mapGetters({
+    articles: 'manage.end/articles'
+  })
 }
 </script>

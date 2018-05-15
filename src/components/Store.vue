@@ -47,7 +47,8 @@
 
 <script>
 import Form from '~/instance/form'
-import { MAP, DB, STORAGE } from '~/instance/fire'
+import { DB, STORAGE } from '~/instance/fire'
+import { mapGetters, mapActions } from 'vuex'
 
 const FILETYPE = NAME => {
   return NAME.substr(NAME.indexOf('.'), NAME.length).toLowerCase()
@@ -61,12 +62,19 @@ export default {
         author: null,
         href: null
       }),
-      temp: null,
-      articles: []
+      temp: null
     }
   },
 
+  created () {
+    this.real()
+  },
+
   methods: {
+    ...mapActions({
+      real: 'manage.end/getArticlesSnapshot'
+    }),
+
     addOn () {
       if (!this.temp) return console.warn('Something went wrong!!')
 
@@ -109,15 +117,8 @@ export default {
     }
   },
 
-  created () {
-    DB.collection('articles').onSnapshot(querySnapshot => {
-      let snapshot = []
-      querySnapshot.forEach(doc => {
-        snapshot.push(MAP(doc))
-      })
-
-      this.articles = snapshot
-    })
-  }
+  computed: mapGetters({
+    articles: 'manage.end/articles'
+  })
 }
 </script>

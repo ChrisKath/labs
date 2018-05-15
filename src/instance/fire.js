@@ -22,13 +22,3 @@ store.settings({
 export default FIREBASE
 export const DB = store
 export const STORAGE = FIREBASE.storage().ref()
-
-export const MAP = doc => {
-  return {
-    id:         doc.id,
-    topic:      doc.data().topic,
-    author:     doc.data().author,
-    image:      doc.data().image,
-    timestamp:  doc.data().timestamp
-  }
-}

@@ -12,17 +12,27 @@ body {
 }
 
 .n-intro {
-  .exp();
+  position: relative;
   display: block;
   text-align: center;
+  color: @base-color;
+
+  padding: 15px;
+  font-size: 30px;
+  font-weight: normal;
+
+  background-color: #8EC5FC;
+  background-image: linear-gradient(160deg, #E0C3FC 0%, #8EC5FC 100%);
+
+  box-shadow: 0 5px 10px fade(@custom-shadow, 8%);
 }
 
 .n-form {
   margin: 0 auto;
-  max-width: 390px;
-  padding: 12px 20px 20px;
+  max-width: 400px;
+  padding: 5px 20px 20px;
   background-color: @base-color;
-  box-shadow: 0 5px 10px fade(@shadow-color, 4%);
+  box-shadow: 0 2px 10px fade(@custom-shadow, 6%);
 }
 
 .n-input {
@@ -69,4 +79,74 @@ body {
   @media @mobile {
     max-width: 350px;
   }
+}
+
+
+.n-add {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+
+  font-size: 38px;
+  text-align: center;
+  cursor: pointer;
+
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 100%;
+  background-color: @base-color;
+  box-shadow: 0 1px 5px fade(@shadow-color, 8%);
+
+  i::before {
+    color: #8EC5FC;
+    background: -webkit-linear-gradient(160deg, #8EC5FC 0%, #E0C3FC 100%);
+    background-image: -o-linear-gradient(transparent, transparent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+
+.modal-mask {
+  position: fixed;
+  z-index: @zindex-modal;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 220ms ease;
+  background-color: hsla(220, 50%, 40%, .12);
+}
+.modal-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 460px;
+  margin: 50px auto;
+  border-radius: @border-radius-small;
+  background-color: @base-color;
+  box-shadow: 0 5px 15px hsla(220, 15%, 15%, .04);
+  transition: all 240ms ease;
+}
+
+/*
+* The following styles are auto-applied to elements with
+* transition="modal" when their visibility is toggled
+* by Vue.js.
+*
+* You can easily play with the modal transition by editing
+* these styles.
+*/
+
+.n-modal-enter {
+  opacity: 0;
+}
+
+.n-modal-leave-active {
+  opacity: 0;
+}
+
+.n-modal-enter .modal-container,
+.n-modal-leave-active .modal-container {
+  transform: scale(1.1);
 }

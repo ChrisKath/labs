@@ -1,9 +1,9 @@
-import FIREBASE from '@firebase/app'
-import '@firebase/auth'
-import '@firebase/storage'
-import '@firebase/database'
-import '@firebase/firestore'
-import '@firebase/functions'
+import FIREBASE from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/storage'
+import 'firebase/database'
+import 'firebase/firestore'
+import 'firebase/functions'
 
 FIREBASE.initializeApp({
   apiKey: 'AIzaSyAZT279ZBiNGkWUA04pYQNyWN6BN6WW-h8',

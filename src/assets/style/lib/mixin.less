@@ -108,3 +108,14 @@
   }
   .margin(@n, (@i + 5));
 }
+
+.close-base(@top: 0, @icon-font-size: 22px) {
+  font-size: @icon-font-size;
+  color: @legend-color;
+  transition: color @transition-time ease;
+  position: relative;
+  top: @top;
+  &:hover {
+    color: #444;
+  }
+}

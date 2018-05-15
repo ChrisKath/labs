@@ -1,48 +1,65 @@
 <template lang="html">
-  <div class="n-store">
-    <div class="n-intro">
-      <h1>Vue.js 2 &amp; Firebase Sample Datastore</h1>
-    </div>
+  <transition name="n-modal">
+    <div class="modal-mask modal-wrapper">
 
-    <div class="n-form">
-      <input type="text" class="n-input" placeholder="Topic"
-        v-model="form.topic"
-      />
+      <div class="modal-container n-store">
 
-      <input type="text" class="n-input" placeholder="Author"
-        v-model="form.author"
-      />
+        <div class="n-intro">
+          Cloud Firestore &amp; Cloud Storage
+        </div>
 
-      <input type="text" class="n-input" placeholder="Full URL"
-        v-model="form.href"
-      />
+        <div class="n-form">
+          <input type="text"
+            class="n-input"
+            placeholder="Topic"
+            v-model="form.topic"
+          />
 
-      <input type="file" class="n-input n-file" accept="image/*"
-        @change="handleFiles"
-      />
+          <input type="text"
+            class="n-input"
+            placeholder="Author"
+            v-model="form.author"
+          />
 
-      <button type="button" class="n-btn" @click="addOn">
-        <Icon type="ios-flask-outline"/>
-        <span>ADD</span>
-      </button>
-    </div>
+          <input type="text"
+            class="n-input"
+            placeholder="Full URL"
+            v-model="form.href"
+          />
 
-    <div class="n-items">
+          <input type="file"
+            accept="image/*"
+            class="n-input n-file"
+            @change="handleFiles"
+          />
 
-      <ul class="n-ul">
-        <li class="n-li" v-for="(article, key) in articles" :key="key">
-          <span :title="article.topic">{{ article.topic }}</span>
-          <span>{{ article.author }}</span>
-          <span>{{ $moment(article.timestamp).format('LL')}}</span>
-
-          <button class="n-li-btn" @click="removeArticle(article)">
-            <Icon type="ios-trash"/>
+          <button type="button" class="n-btn" @click="add">
+            <Icon type="ios-flask-outline"/>
+            <span>ADD</span>
           </button>
-        </li>
-      </ul>
+
+          <Loader v-if="LOAD"/>
+        </div>
+
+        <div class="n-items">
+
+          <ul class="n-ul">
+            <li class="n-li" v-for="(article, key) in articles" :key="key">
+              <span :title="article.topic">{{ article.topic }}</span>
+              <span>{{ article.author }}</span>
+              <span>{{ $moment(article.timestamp).format('LL')}}</span>
+
+              <button class="n-li-btn" @click="remove(article)">
+                <Icon type="ios-trash"/>
+              </button>
+            </li>
+          </ul>
+
+        </div>
+      </div>
 
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -62,7 +79,8 @@ export default {
         author: null,
         href: null
       }),
-      temp: null
+      temp: null,
+      LOAD: false
     }
   },
 
@@ -75,13 +93,14 @@ export default {
       real: 'manage.end/getArticlesSnapshot'
     }),
 
-    addOn () {
+    add () {
       if (!this.temp) return console.warn('Something went wrong!!')
 
       const FORM = Object.assign({}, this.form.data())
       const FILE = this.temp
       const NAME = `${Date.now()}${FILETYPE(FILE.name)}`
 
+      this.LOAD = true
       /**
        * Upload file to firebase storage.
        */
@@ -98,22 +117,60 @@ export default {
             * Insert new article to Cloud firestore
             */
             DB.collection('articles').add(FORM)
-              .then(() => console.log('Document successfully written!'))
-              .catch(err => console.log(err))
+              .then(response => {
+                this.LOAD = false
+                this.success(response)
+              })
+              .catch(error => this.warning(error))
 
             this.form.reset()
             document.querySelector('input[type=file]').value = null
           })
         })
-        .catch(err => {
-          console.error(err)
-          // this.$router.push({name: 'auth'})
+        .catch(error => this.warning(error))
+    },
+
+    remove (article) {
+      /**
+      * Delete Files on Cloud Storage
+      */
+      STORAGE.child(article.image.split('?')[0]).delete()
+        .then(() => {
+          /**
+          * Delete Data from Cloud Firestore
+          */
+          DB.collection('articles').doc(article.id).delete()
+            .then(() => {
+              this.NOTICE.info({
+                title: 'Clear Desu!',
+                desc: 'Document successfully deleted!'
+              })
+            })
+            .catch(error => this.warning(error))
         })
+        .catch(error => this.warning(error))
     },
 
     handleFiles () {
       let FILE = event.target.files
       this.temp = FILE[0]
+    },
+
+    success (response) {
+      this.NOTICE.success({
+        title: 'Good job!',
+        desc: 'Document successfully written!'
+      })
+      console.log(response)
+    },
+
+    warning (err) {
+      this.NOTICE.warning({
+        title: err.code,
+        desc: err.message,
+        duration: 6.4
+      })
+      console.warn(err)
     }
   },
 

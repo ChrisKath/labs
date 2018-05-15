@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
-import router from './router'
 
 // Initialize (less) styling.
 import '~/assets/style/core.less'
@@ -11,10 +10,16 @@ import '~/assets/style/core.less'
 // Initialize Components & plugins.
 import Moment from 'vue-moment'
 import Icon from '~/components/helpers/icon'
+import Modals from '~/components/helpers/Modals'
 import Mockups from '~/components/helpers/Mockups'
+import Notice from '~/components/helpers/Notice'
+import Loader from '~/components/helpers/Loader'
 const components = {
   Icon,
-  Mockups
+  Modals,
+  Mockups,
+  Notice,
+  Loader
 }
 
 // Installation components.
@@ -25,6 +30,7 @@ Object.keys(components).forEach(key => {
 // Initialize Firebase
 Vue.use(Moment)
 Vue.prototype.PORT = 'https://firebasestorage.googleapis.com/v0/b/touch-d0c06.appspot.com/o/'
+Vue.prototype.NOTICE = Notice
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
@@ -33,6 +39,5 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   store,
-  router,
   render: h => h(App)
 })

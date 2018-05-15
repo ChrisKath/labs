@@ -4,7 +4,7 @@
 
       <div class="mu-image" :style="backgroundImage(data.image)"></div>
 
-      <div class="mu-title">
+      <div class="mu-title" :title="data.topic">
         <a :href="data.href" target="_blank">{{ data.topic }}</a>
       </div>
 

@@ -19,6 +19,7 @@ export const mutations = {
         id        : doc.id,
         topic     : doc.data().topic,
         author    : doc.data().author,
+        href      : doc.data().href,
         image     : doc.data().image,
         timestamp : doc.data().timestamp
       })
@@ -30,9 +31,11 @@ export const mutations = {
 
 // actions
 export const actions = {
-  getArticlesSnapshot ({ commit, dispatch }) {
-    DB.collection('articles').onSnapshot(querySnapshot => {
-      commit('FETCH_ARTICLES', querySnapshot)
-    })
+  getArticlesSnapshot ({ commit }) {
+    DB.collection('articles')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(querySnapshot => {
+        commit('FETCH_ARTICLES', querySnapshot)
+      })
   }
 }

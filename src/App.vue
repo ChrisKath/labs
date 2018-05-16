@@ -52,7 +52,13 @@ export default {
        */
       if (e.key === 'F9' || e.keyCode === 120) {
         FIRE.auth().signOut()
-          .then(res => ROOT.closed())
+          .then(response => {
+            ROOT.closed()
+            ROOT.NOTICE.info({
+              title: 'Notice',
+              desc: 'Your signed out.'
+            })
+          })
           .catch(err => console.error(err))
       }
 

@@ -100,7 +100,7 @@ export default {
             this.$emit('signed')
           }, 1280)
         })
-        .catch(err => console.error(err))
+        .catch(err => this.warning(err))
     },
 
     onSignInWith (type) {
@@ -167,12 +167,13 @@ export default {
     },
 
     warning (err) {
+      this.LOAD = false
       this.NOTICE.warning({
         title: err.code,
         desc: err.message,
         duration: 6.4
       })
-      console.error(err)
+      console.warn(err)
     }
   }
 }

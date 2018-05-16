@@ -1,7 +1,7 @@
 <template lang="html">
   <main id="app-wrap" aria-core="Core Program">
 
-    <Index />
+    <Index :class="{'n-blur': blur}" />
 
     <Store v-if="modals.store"/>
 
@@ -88,6 +88,12 @@ export default {
       Object.keys(this.modals).map(key => {
         this.modals[key] = false
       })
+    }
+  },
+
+  computed: {
+    blur () {
+      return Object.values(this.modals).find(h => (h === true)) || false
     }
   },
 

@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="n-index">
+  <Loader v-if="!articles.length"/>
+  <div v-else class="n-index">
 
     <Mockups v-for="(article, key) in articles"
       :key="key"

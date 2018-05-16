@@ -94,7 +94,12 @@ export default {
     }),
 
     add () {
-      if (!this.temp) return console.warn('Something went wrong!!')
+      if (!this.temp) {
+        return this.warning({
+          code: 'Warning.',
+          message: 'Something went wrong!!'
+        })
+      }
 
       const FORM = Object.assign({}, this.form.data())
       const FILE = this.temp
@@ -131,6 +136,8 @@ export default {
     },
 
     remove (article) {
+      if (!confirm('Are you sure?\nOnce deleted, you will not be able to recover this Article!')) return false
+
       /**
       * Delete Files on Cloud Storage
       */
@@ -168,7 +175,7 @@ export default {
       this.NOTICE.warning({
         title: err.code,
         desc: err.message,
-        duration: 6.4
+        duration: 5.5
       })
       console.warn(err)
     }

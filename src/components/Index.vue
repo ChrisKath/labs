@@ -2,8 +2,8 @@
   <Loader v-if="!articles.length"/>
   <div v-else class="n-index">
 
-    <Mockups v-for="(article, key) in articles"
-      :key="key"
+    <Mockups v-for="article in articles"
+      :key="article.id"
       :data="article"
     />
 

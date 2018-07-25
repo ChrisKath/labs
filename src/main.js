@@ -4,10 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 
-// Initialize (less) styling.
+/**
+ * Initialize Components & plugins.
+ */
 import '~/assets/style/core.less'
 
-// Initialize Components & plugins.
+/**
+ * Initialize Components & plugins.
+ */
 import Moment from 'vue-moment'
 import Icon from '~/components/helpers/icon'
 import Modals from '~/components/helpers/Modals'
@@ -22,17 +26,21 @@ const components = {
   Loader
 }
 
-// Installation components.
+/**
+ * Installation components.
+ */
 Object.keys(components).forEach(key => {
   Vue.component(key, components[key])
 })
 
-// Initialize Firebase
+/**
+ * Initialize Firebase.
+ */
 Vue.use(Moment)
 Vue.prototype.PORT = 'https://firebasestorage.googleapis.com/v0/b/touch-d0c06.appspot.com/o/'
 Vue.prototype.NOTICE = Notice
 
-Vue.config.devtools = true
+Vue.config.devtools = process.env.NODE_ENV !== 'production'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
